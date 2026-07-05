@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/accordion';
 
 const HERO_IMG =
-  'https://cdn.poehali.dev/projects/1e5a85f0-8fa4-42c7-9147-65c3ae251167/files/0b7de4a3-bd33-4f40-8b6e-7e3a47bfffa2.jpg';
+  'https://cdn.poehali.dev/projects/1e5a85f0-8fa4-42c7-9147-65c3ae251167/files/6a39f6c3-c6bf-4c58-bdc8-9af82b28cf72.jpg';
 
 const APPLICATIONS_URL =
   'https://functions.poehali.dev/a6b2d3e7-9b39-4bc3-87b8-5acdb97175a4';
@@ -62,7 +62,7 @@ const ROLES = [
     title: 'Сотрудник ютубер',
     icon: 'Video',
     color: 'from-fuchsia-500 to-purple-700',
-    desc: 'Создание контента и продвижение HERO RUSSIA.',
+    desc: 'Создание контента и продвижение BLACK RUSSIA.',
     perks: ['Донат-бонусы', 'Реклама канала', 'Эксклюзивы'],
   },
 ];
@@ -131,7 +131,7 @@ export default function Index() {
             className="flex items-center gap-2 font-display font-bold text-xl tracking-wider"
           >
             <Icon name="Flame" className="text-primary" size={26} />
-            HERO<span className="text-primary">RUSSIA</span>
+            BLACK<span className="text-primary">RUSSIA</span>
           </button>
           <nav className="hidden md:flex items-center gap-6">
             {NAV.map((n) => (
@@ -160,7 +160,7 @@ export default function Index() {
       >
         <img
           src={HERO_IMG}
-          alt="HERO RUSSIA"
+          alt="BLACK RUSSIA"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
@@ -169,12 +169,12 @@ export default function Index() {
           <div className="max-w-2xl animate-fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 bg-primary/10 text-primary text-sm font-medium mb-6">
               <Icon name="Zap" size={16} />
-              Набор в команду открыт
+              Набор в команду 2026 открыт
             </div>
             <h1 className="font-display font-bold text-5xl md:text-7xl leading-none uppercase mb-6">
               Стань частью
               <br />
-              <span className="text-gradient">HERO RUSSIA</span>
+              <span className="text-gradient">BLACK RUSSIA</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-lg">
               Присоединяйся к команде культовой игры. Выбирай свою роль,
@@ -214,13 +214,13 @@ export default function Index() {
                 Легендарный проект с большой командой
               </h2>
               <p className="text-muted-foreground text-lg mb-6">
-                HERO RUSSIA — это динамичная игровая вселенная, где каждый
-                находит своё место. Мы объединяем администраторов, контент-мейкеров
-                и энтузиастов для создания лучшего игрового опыта.
+                BLACK RUSSIA — это динамичная игровая вселенная 2026 года, где
+                каждый находит своё место. Мы объединяем администраторов,
+                контент-мейкеров и энтузиастов для создания лучшего игрового опыта.
               </p>
               <div className="grid grid-cols-3 gap-4">
                 {[
-                  { n: '10K+', l: 'Игроков' },
+                  { n: '500+', l: 'Игроков' },
                   { n: '50+', l: 'В команде' },
                   { n: '24/7', l: 'Онлайн' },
                 ].map((s) => (
@@ -495,11 +495,9 @@ export default function Index() {
               Контакты
             </h2>
           </div>
-          <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          <div className="max-w-xs mx-auto">
             {[
-              { icon: 'Send', t: 'Telegram', d: '@herorussia' },
-              { icon: 'MessageCircle', t: 'ВКонтакте', d: 'vk.com/herorussia' },
-              { icon: 'Mail', t: 'Почта', d: 'team@herorussia.ru' },
+              { icon: 'Send', t: 'Telegram', d: 'hero_russia_4334 сообщество' },
             ].map((c) => (
               <div
                 key={c.t}
@@ -523,10 +521,10 @@ export default function Index() {
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 font-display font-bold text-lg tracking-wider">
             <Icon name="Flame" className="text-primary" size={22} />
-            HERO<span className="text-primary">RUSSIA</span>
+            BLACK<span className="text-primary">RUSSIA</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            © 2026 HERO RUSSIA. Все права защищены.
+            © 2026 BLACK RUSSIA. Все права защищены.
           </p>
         </div>
       </footer>
