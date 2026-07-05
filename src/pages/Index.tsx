@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/accordion';
 
 const HERO_IMG =
-  'https://cdn.poehali.dev/projects/1e5a85f0-8fa4-42c7-9147-65c3ae251167/files/2669fb03-bf43-4d59-beba-53f057a3322a.jpg';
+  'https://cdn.poehali.dev/projects/1e5a85f0-8fa4-42c7-9147-65c3ae251167/files/0b7de4a3-bd33-4f40-8b6e-7e3a47bfffa2.jpg';
 
 const APPLICATIONS_URL =
   'https://functions.poehali.dev/a6b2d3e7-9b39-4bc3-87b8-5acdb97175a4';
