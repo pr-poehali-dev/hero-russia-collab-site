@@ -62,7 +62,7 @@ const ROLES = [
     title: 'Сотрудник ютубер',
     icon: 'Video',
     color: 'from-fuchsia-500 to-purple-700',
-    desc: 'Создание контента и продвижение BLACK RUSSIA.',
+    desc: 'Создание контента и продвижение HERO RUSSIA.',
     perks: ['Донат-бонусы', 'Реклама канала', 'Эксклюзивы'],
   },
 ];
@@ -131,7 +131,7 @@ export default function Index() {
             className="flex items-center gap-2 font-display font-bold text-xl tracking-wider"
           >
             <Icon name="Flame" className="text-primary" size={26} />
-            BLACK<span className="text-primary">RUSSIA</span>
+            HERO<span className="text-primary">RUSSIA</span>
           </button>
           <nav className="hidden md:flex items-center gap-6">
             {NAV.map((n) => (
@@ -160,7 +160,7 @@ export default function Index() {
       >
         <img
           src={HERO_IMG}
-          alt="BLACK RUSSIA"
+          alt="HERO RUSSIA"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
@@ -174,7 +174,7 @@ export default function Index() {
             <h1 className="font-display font-bold text-5xl md:text-7xl leading-none uppercase mb-6">
               Стань частью
               <br />
-              <span className="text-gradient">BLACK RUSSIA</span>
+              <span className="text-gradient">HERO RUSSIA</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-lg">
               Присоединяйся к команде культовой игры. Выбирай свою роль,
@@ -214,7 +214,7 @@ export default function Index() {
                 Легендарный проект с большой командой
               </h2>
               <p className="text-muted-foreground text-lg mb-6">
-                BLACK RUSSIA — это динамичная игровая вселенная 2026 года, где
+                HERO RUSSIA — это динамичная игровая вселенная 2026 года, где
                 каждый находит своё место. Мы объединяем администраторов,
                 контент-мейкеров и энтузиастов для создания лучшего игрового опыта.
               </p>
@@ -497,7 +497,7 @@ export default function Index() {
           </div>
           <div className="max-w-xs mx-auto">
             {[
-              { icon: 'Send', t: 'Telegram', d: 'hero_russia_4334 сообщество' },
+              { icon: 'MessageCircle', t: 'ВКонтакте', d: 'hero_russia_4334 сообщество' },
             ].map((c) => (
               <div
                 key={c.t}
@@ -521,10 +521,10 @@ export default function Index() {
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 font-display font-bold text-lg tracking-wider">
             <Icon name="Flame" className="text-primary" size={22} />
-            BLACK<span className="text-primary">RUSSIA</span>
+            HERO<span className="text-primary">RUSSIA</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            © 2026 BLACK RUSSIA. Все права защищены.
+            © 2026 HERO RUSSIA. Все права защищены.
           </p>
         </div>
       </footer>
