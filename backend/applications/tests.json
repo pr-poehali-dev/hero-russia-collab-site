@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "Отправка валидной заявки",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "vk": "vk.com/id123",
+        "phone": "+79001234567",
+        "nick": "TestHero",
+        "role": "Сотрудник бесплатный",
+        "reason": "Хочу помогать проекту"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {"success": true, "message": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Пустая заявка отклоняется",
+      "method": "POST",
+      "path": "/",
+      "body": {"vk": "", "phone": "", "nick": "", "role": "", "reason": ""},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

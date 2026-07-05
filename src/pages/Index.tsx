@@ -20,6 +20,9 @@ import {
 const HERO_IMG =
   'https://cdn.poehali.dev/projects/1e5a85f0-8fa4-42c7-9147-65c3ae251167/files/2669fb03-bf43-4d59-beba-53f057a3322a.jpg';
 
+const APPLICATIONS_URL =
+  'https://functions.poehali.dev/a6b2d3e7-9b39-4bc3-87b8-5acdb97175a4';
+
 const NAV = [
   { id: 'home', label: 'Главная' },
   { id: 'about', label: 'О проекте' },
@@ -92,14 +95,30 @@ export default function Index() {
     reason: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError('');
+    setLoading(true);
+    try {
+      const res = await fetch(APPLICATIONS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+    } catch {
+      setError('Не удалось отправить заявку. Проверьте поля и попробуйте ещё раз.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -405,13 +424,29 @@ export default function Index() {
                     onChange={(e) => setForm({ ...form, reason: e.target.value })}
                   />
                 </div>
+                {error && (
+                  <div className="flex items-center gap-2 text-sm text-destructive bg-destructive/10 border border-destructive/30 rounded-lg px-4 py-3">
+                    <Icon name="TriangleAlert" size={18} />
+                    {error}
+                  </div>
+                )}
                 <Button
                   type="submit"
                   size="lg"
+                  disabled={loading}
                   className="w-full font-display uppercase tracking-wider text-base h-12"
                 >
-                  Отправить заявку
-                  <Icon name="Send" size={18} className="ml-1" />
+                  {loading ? (
+                    <>
+                      <Icon name="Loader2" size={18} className="mr-1 animate-spin" />
+                      Отправляем...
+                    </>
+                  ) : (
+                    <>
+                      Отправить заявку
+                      <Icon name="Send" size={18} className="ml-1" />
+                    </>
+                  )}
                 </Button>
               </form>
             )}
