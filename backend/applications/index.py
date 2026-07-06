@@ -5,8 +5,9 @@ import psycopg2
 
 def handler(event: dict, context) -> dict:
     '''
-    Business: Приём заявок на сотрудничество HERO RUSSIA и сохранение их в базу данных
-    Args: event с httpMethod, body (JSON: vk, phone, nick, role, reason)
+    Business: Приём заявок на сотрудничество HERO RUSSIA и сохранение их в базу данных.
+              Поддерживает GET-запрос для проверки статуса заявки по id (?id=123)
+    Args: event с httpMethod, queryStringParameters (id), body (JSON: vk, phone, nick, role, reason)
           context - объект с request_id
     Returns: HTTP-ответ со статусом заявки
     '''
@@ -21,6 +22,49 @@ def handler(event: dict, context) -> dict:
 
     if method == 'OPTIONS':
         return {'statusCode': 200, 'headers': cors_headers, 'body': ''}
+
+    if method == 'GET':
+        params = event.get('queryStringParameters') or {}
+        raw_id = params.get('id')
+
+        if raw_id is None or not str(raw_id).strip().isdigit():
+            return {
+                'statusCode': 400,
+                'headers': {**cors_headers, 'Content-Type': 'application/json'},
+                'body': json.dumps({'error': 'Укажите ID заявки'}),
+            }
+
+        app_id = int(raw_id)
+
+        conn = psycopg2.connect(os.environ['DATABASE_URL'])
+        cur = conn.cursor()
+        cur.execute(
+            "SELECT id, nick, role, status, created_at FROM applications WHERE id = %s",
+            (app_id,),
+        )
+        row = cur.fetchone()
+        cur.close()
+        conn.close()
+
+        if row is None:
+            return {
+                'statusCode': 404,
+                'headers': {**cors_headers, 'Content-Type': 'application/json'},
+                'body': json.dumps({'error': 'Заявка не найдена'}),
+            }
+
+        return {
+            'statusCode': 200,
+            'headers': {**cors_headers, 'Content-Type': 'application/json'},
+            'body': json.dumps({
+                'id': row[0],
+                'nick': row[1],
+                'role': row[2],
+                'status': row[3],
+                'created_at': row[4].isoformat() if row[4] else None,
+            }),
+            'isBase64Encoded': False,
+        }
 
     if method != 'POST':
         return {

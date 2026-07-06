@@ -23,6 +23,22 @@
       "expectedStatus": 400,
       "expectedBody": {"error": "string"},
       "bodyMatcher": "partial"
+    },
+    {
+      "name": "GET с несуществующим id возвращает 404",
+      "method": "GET",
+      "path": "/?id=999999",
+      "expectedStatus": 404,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "GET без id возвращает 400",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 400,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
     }
   ]
 }

@@ -98,6 +98,11 @@ export default function Index() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const [checkId, setCheckId] = useState('');
+  const [checkResult, setCheckResult] = useState<any | null>(null);
+  const [checkLoading, setCheckLoading] = useState(false);
+  const [checkError, setCheckError] = useState('');
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -118,6 +123,31 @@ export default function Index() {
       setError('Не удалось отправить заявку. Проверьте поля и попробуйте ещё раз.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCheckStatus = async () => {
+    setCheckError('');
+    setCheckResult(null);
+    if (!checkId.trim() || !/^\d+$/.test(checkId.trim())) {
+      setCheckError('Введите корректный ID заявки');
+      return;
+    }
+    setCheckLoading(true);
+    try {
+      const res = await fetch(`${APPLICATIONS_URL}?id=${checkId.trim()}`, {
+        method: 'GET',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCheckError(data.error || 'Не удалось проверить статус заявки');
+        return;
+      }
+      setCheckResult(data);
+    } catch {
+      setCheckError('Не удалось проверить статус заявки. Попробуйте позже.');
+    } finally {
+      setCheckLoading(false);
     }
   };
 
@@ -450,6 +480,89 @@ export default function Index() {
                 </Button>
               </form>
             )}
+
+            <div className="mt-14">
+              <div className="text-center mb-6">
+                <h3 className="font-display font-bold text-2xl uppercase tracking-wide">
+                  Проверить статус заявки
+                </h3>
+              </div>
+              <div className="p-8 rounded-2xl bg-card border border-border">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Input
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="Введите ID заявки"
+                    value={checkId}
+                    onChange={(e) => setCheckId(e.target.value)}
+                  />
+                  <Button
+                    onClick={handleCheckStatus}
+                    disabled={checkLoading}
+                    className="font-display uppercase tracking-wide sm:w-auto whitespace-nowrap"
+                  >
+                    {checkLoading ? (
+                      <>
+                        <Icon name="Loader2" size={18} className="mr-1 animate-spin" />
+                        Проверяем...
+                      </>
+                    ) : (
+                      <>
+                        Проверить
+                        <Icon name="Search" size={18} className="ml-1" />
+                      </>
+                    )}
+                  </Button>
+                </div>
+
+                {checkError && (
+                  <div className="flex items-center gap-2 text-sm text-destructive bg-destructive/10 border border-destructive/30 rounded-lg px-4 py-3 mt-4">
+                    <Icon name="TriangleAlert" size={18} />
+                    {checkError}
+                  </div>
+                )}
+
+                {checkResult && (
+                  <div className="mt-5 p-5 rounded-xl bg-background border border-border animate-scale-in">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm text-muted-foreground uppercase tracking-wide">
+                        Ник
+                      </span>
+                      <span className="font-display font-semibold">
+                        {checkResult.nick}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-sm text-muted-foreground uppercase tracking-wide">
+                        Роль
+                      </span>
+                      <span className="font-display font-semibold">
+                        {checkResult.role}
+                      </span>
+                    </div>
+                    {checkResult.status === 'accepted' && (
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30 font-display uppercase tracking-wide text-sm">
+                        <Icon name="CircleCheck" size={18} />
+                        Принято
+                      </div>
+                    )}
+                    {checkResult.status === 'rejected' && (
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/15 text-red-500 border border-red-500/30 font-display uppercase tracking-wide text-sm">
+                        <Icon name="CircleX" size={18} />
+                        Отказано
+                      </div>
+                    )}
+                    {checkResult.status !== 'accepted' &&
+                      checkResult.status !== 'rejected' && (
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/15 text-amber-500 border border-amber-500/30 font-display uppercase tracking-wide text-sm">
+                          <Icon name="Clock" size={18} />
+                          На рассмотрении
+                        </div>
+                      )}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </section>
